@@ -76,8 +76,11 @@ public class UrlServiceImpl implements UrlService{
 		LocalDateTime accessdate = null;
 
 		for(Urls u : Urls.urlList) {
-			if(u.getUrl().equals(url))
-			accessdate = u.getLastAccessDate();
+			if(u.getUrl().equals(url)) {
+				if(u.getLastAccessDate()==null)
+					throw new UrlException("SERVICE.NEVERACCESSED");
+				accessdate = u.getLastAccessDate();
+			}
 		}
 		if(accessdate == null)
 			throw new UrlException("SERVICE.URLDOESNOTEXISTS");
