@@ -44,10 +44,10 @@ public class UrlController {
 	
 	
     @GetMapping(value = "/get")
-    public ResponseEntity<String> get(@RequestParam  String url){
+    public ResponseEntity<Integer> get(@RequestParam  String url){
     	try {
-	        int urlKey = urlService.get(url);
-	        return new ResponseEntity<>(""+urlKey, HttpStatus.OK);
+	        Integer urlKey = urlService.get(url);
+	        return new ResponseEntity<>(urlKey, HttpStatus.OK);
     	}
     	catch(UrlException exception) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, environment.getProperty(exception.getMessage()), exception);
@@ -56,10 +56,10 @@ public class UrlController {
     
     
     @GetMapping(value = "/count")
-    public ResponseEntity<String> count(@RequestParam  String url){
+    public ResponseEntity<Integer> count(@RequestParam  String url){
     	try {
 	        Integer count = urlService.count(url);
-	        return new ResponseEntity<>(""+count, HttpStatus.OK);
+	        return new ResponseEntity<>(count, HttpStatus.OK);
     	}
     	catch(UrlException exception) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, environment.getProperty(exception.getMessage()), exception);
