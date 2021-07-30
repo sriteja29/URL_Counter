@@ -1,24 +1,21 @@
 package com.urlcounter.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "URLCOUNTERTABLE")
 public class Urls {
 	
-	
+	@Id
 	private String url;
 	
 	private Integer count=0;
 	
-	@Id
-	@GeneratedValue()
 	private Integer urlShortKey;
 	
 	private LocalDateTime lastAccessDate;

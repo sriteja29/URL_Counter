@@ -1,16 +1,14 @@
 package com.urlcounter.assignment;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.urlcounter.exception.UrlException;
 import com.urlcounter.model.Urls;
+import com.urlcounter.repository.UrlRepository;
 import com.urlcounter.service.UrlService;
 
 @SpringBootTest
@@ -18,8 +16,10 @@ class AssignmentApplicationTests {
 	
 	@Autowired
 	UrlService urlService;
-
-
+	
+	@Autowired
+	UrlRepository urlRepository;
+	
 	@Test
 	void storeUrlValid() throws UrlException{
 		String url = "google.com";
@@ -92,7 +92,7 @@ class AssignmentApplicationTests {
 			urlService.storeUrl(url);
 		}
 		urlList = urlService.list(2,2);
-//		Assertions.assertTrue(Urls.urlList.containsAll(urlList));
+		Assertions.assertTrue(urlRepository.findAll().containsAll(urlList));
 	}
 	
 	@Test

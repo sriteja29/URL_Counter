@@ -1,6 +1,5 @@
 package com.urlcounter.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +33,8 @@ public class UrlController {
 		
 		//Date FUNCTIONALITY
 		try {
-			Urls urlData = urlService.storeUrl(url);
-			String successMessage = environment.getProperty("API.INSERT_SUCCESS") ;
+			Urls urls = urlService.storeUrl(url);
+			String successMessage = environment.getProperty("API.INSERT_SUCCESS") + urls.getUrl();
 			return new ResponseEntity<>(successMessage, HttpStatus.CREATED);   
 		}
 		catch(UrlException exception) {

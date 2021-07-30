@@ -22,23 +22,28 @@ public class UrlServiceImpl implements UrlService{
 	
 	@Autowired
 	UrlRepository urlRepository;
+	static Integer key =1;
 	
 	public Urls storeUrl(String url) throws UrlException{
 
-		Optional<Urls> urls = urlRepository.findByUrl(url);
-		if(urls.isEmpty())
+		Optional<Urls> urls = urlRepository.findById(url);
+		
+		
+		if(urls.isPresent())
 			throw new UrlException("SERVICE.URLEXISTS");
 		Urls urlNew = new Urls();
 		urlNew.setUrl(url);
+		urlNew.setUrlShortKey(key++);
 		urlRepository.save(urlNew);
 		return urlNew;		
 	}
 	
 	public Integer get(String url) throws UrlException {
-
-		Optional<Urls> urls =  urlRepository.findByUrl(url);
-		Urls u =  urls.orElseThrow(() ->new UrlException("SERVICE.URLDOESNOTEXISTS"));
 		
+		Optional<Urls> urls =  urlRepository.findById(url);
+		if(urls.isEmpty())
+			throw new UrlException("SERVICE.URLEXISTS");
+		Urls u =  urls.get();
 		u.setCount(u.getCount()+1);
 		u.setLastAccessDate(LocalDateTime.now());
 		
@@ -49,7 +54,7 @@ public class UrlServiceImpl implements UrlService{
 	
 	public Integer count(String url) throws UrlException {
 		
-		Optional<Urls> urls =  urlRepository.findByUrl(url);
+		Optional<Urls> urls =  urlRepository.findById(url);
 		Urls u =  urls.orElseThrow(() ->new UrlException("SERVICE.URLDOESNOTEXISTS"));
 		return u.getCount();
 	}
@@ -70,7 +75,7 @@ public class UrlServiceImpl implements UrlService{
 	
 	public LocalDateTime accessDate(String url) throws UrlException {
 		
-		Optional<Urls> urls =  urlRepository.findByUrl(url);
+		Optional<Urls> urls =  urlRepository.findById(url);
 		Urls u =  urls.orElseThrow(() ->new UrlException("SERVICE.URLDOESNOTEXISTS"));
 		if(u.getCount()==0) 
 			throw new UrlException("SERVICE.NEVERACCESSED");

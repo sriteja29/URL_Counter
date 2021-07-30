@@ -3,12 +3,14 @@ package com.urlcounter.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.urlcounter.model.Urls;
 
 @Repository
-public interface UrlRepository extends JpaRepository<Urls, Integer>{
+public interface UrlRepository extends JpaRepository<Urls, String>{
+	
 
-	Optional<Urls> findByUrl(String url);
 
 }
