@@ -31,7 +31,7 @@ public class UrlServiceImpl implements UrlService{
 				result = u.getUrlShortKey();
 			}
 		}
-		
+		System.out.println(result);
 		if(result==0)
 			throw new UrlException("SERVICE.URLDOESNOTEXISTS");
 		

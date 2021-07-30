@@ -48,8 +48,9 @@ class AssignmentApplicationTests {
 	@Test
 	void getUrlKeyValid() throws UrlException {
 		String url = "google.com";
+		urlService.storeUrl(url);
 		Integer key = urlService.get(url);
-		Assertions.assertEquals(100000, key);
+		Assertions.assertTrue(key>=100000);
 	}
 	
 	@Test
